@@ -1,4 +1,4 @@
-package datastructures.node;
+package helper.node;
 
 public class DLLNode {
     int data;
