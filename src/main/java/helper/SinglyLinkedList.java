@@ -1,10 +1,10 @@
-package datastructures;
+package helper;
 
-import datastructures.node.SLLNode;
+import helper.node.Node;
 
 public class SinglyLinkedList {
-    SLLNode head;
-    SLLNode tail;
+    Node head;
+    Node tail;
     int length;
 
     SinglyLinkedList() {
@@ -14,13 +14,13 @@ public class SinglyLinkedList {
     }
 
     SinglyLinkedList(int data) {
-        this.head = new SLLNode(data);
+        this.head = new Node(data);
         this.tail = this.head;
         this.length ++;
     }
 
     public void insertAtHead(int data) {
-        SLLNode newNode = new SLLNode(data);
+        Node newNode = new Node(data);
 
         if(length == 0) {
             this.head = newNode;
@@ -33,7 +33,7 @@ public class SinglyLinkedList {
     }
 
     public void insertAtTail(int data) {
-        SLLNode newNode = new SLLNode(data);
+        Node newNode = new Node(data);
 
         if(length == 0) {
             this.head = newNode;
@@ -56,13 +56,13 @@ public class SinglyLinkedList {
 
         } else {
             // iterate till k-1 th position
-            SLLNode temp = this.head;
+            Node temp = this.head;
             for (int id = 0; id < index - 1; id++) {
                 temp = temp.next;
             }
 
             // insert this new node
-            SLLNode newNode = new SLLNode(data);
+            Node newNode = new Node(data);
             newNode.next = temp.next;
             temp.next = newNode;
         }
@@ -72,22 +72,73 @@ public class SinglyLinkedList {
     }
 
     public void deleteAtHead() {
+        if(length > 0) {
+            if (length ==1) {
+                this.head = null;
+                this.tail = this.head;
+            } else {
+                Node temp = this.head;
+                this.head = this.head.next;
 
+                temp.next = null;
+            }
+
+            length --;
+        }
     }
 
     public void deleteAtTail() {
+        if(length > 0) {
+            if (length ==1) {
+                this.deleteAtTail();
 
+            } else {
+                Node temp = this.head;
+
+                while(temp.next != this.tail) {
+                    temp = temp.next;
+                }
+
+                this.tail = temp;
+                this.tail.next = null;
+            }
+
+            length --;
+        }
     }
 
-    public void deleteAtIndex() {
-        
+    public void deleteAtIndex(int index) {
+        if (length > 0) {
+            if(length == 1) {
+                this.deleteAtHead();
+
+            } else if(length < index) {
+                this.deleteAtTail();
+
+            } else {
+                Node temp = this.head;
+                for(int i = 0; i < index - 1; i++) {
+                    temp = temp.next;
+                }
+
+                if(temp.next != null) {
+                    temp.next = temp.next.next;
+                    temp.next.next = null;
+                }
+
+            }
+        }
+    }
+
+    public void deleteByKey(int data) {
+
     }
 
     @Override
     public String toString() {
         String linkedListString = "";
 
-        SLLNode temp = this.head;
+        Node temp = this.head;
         for (int i =0; i < length; i++) {
             linkedListString += temp.data + " -> ";
 

@@ -1,4 +1,4 @@
-package datastructures;
+package helper;
 
 public class DoublyLinkedList {
 }
